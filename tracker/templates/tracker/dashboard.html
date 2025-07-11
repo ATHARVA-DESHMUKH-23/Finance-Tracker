@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Dashboard</h2>
+<a href="{% url 'add_entry' %}">+ Add Entry</a> | <a href="{% url 'upload_bill' %}">Upload Bill</a> | <form method="post" action="{% url 'logout' %}" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-link p-0" style="color:blue; text-decoration:underline; background:none; border:none;">Logout</button>
+</form>
+<h3>Welcome, {{ user.username }}!</h3>
+
+<h3>Income</h3>
+<ul>
+  {% for entry in incomes %}
+    <li>{{ entry.amount }} | {{ entry.category }} | {{ entry.date_time }}</li>
+  {% empty %}
+    <li>No income entries yet.</li>
+  {% endfor %}
+</ul>
+<h3>Expenditure</h3>
+<ul>
+  {% for entry in expenses %}
+    <li>{{ entry.amount }} | {{ entry.category }} | {{ entry.date_time }}</li>
+  {% empty %}
+    <li>No expense entries yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Review Bill</h2>
+<form method="post" action="{% url 'add_entry' %}">
+    {% csrf_token %}
+    <input type="hidden" name="entry_type" value="{{ parsed.entry_type }}">
+    <input type="hidden" name="category" value="{{ parsed.category }}">
+    <input type="hidden" name="amount" value="{{ parsed.amount }}">
+    <input type="hidden" name="date_time" value="{{ parsed.date_time|date:'Y-m-d\TH:i' }}">
+
+    <table class="table">
+        <tr><th>Type</th><td>{{ parsed.entry_type }}</td></tr>
+        <tr><th>Category</th><td>{{ parsed.category }}</td></tr>
+        <tr><th>Amount</th><td>{{ parsed.amount }}</td></tr>
+        <tr><th>Date</th><td>{{ parsed.date_time }}</td></tr>
+    </table>
+
+    <button type="submit" class="btn btn-success">Add to Finance</button>
+</form>
+
+<p class="mt-3">Raw OCR Text:</p>
+<pre>{{ text }}</pre>
+{% endblock %}
